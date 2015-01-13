@@ -1,13 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h2>
   <%= @brewery.name %>
-</p>
+</h2>
 
 <p>
-  <strong>Year:</strong>
-  <%= @brewery.year %>
+  <i>Established in  <%= @brewery.year %></i>
 </p>
 
 <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
