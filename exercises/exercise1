@@ -1,0 +1,36 @@
+irb(main):001:0> brewdog = Brewery.create name:"BrewDog", year:2007
+   (0.1ms)  begin transaction
+  SQL (0.3ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "BrewDog"], ["year", 2007], ["created_at", "2015-01-19 19:01:18.541375"], ["updated_at", "2015-01-19 19:01:18.541375"]]
+   (38.6ms)  commit transaction
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2015-01-19 19:01:18", updated_at: "2015-01-19 19:01:18">
+irb(main):002:0> punk = Beer.create name:"Punk IPA", style:"IPA", brewery_id:brewdog.id
+   (0.0ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Punk IPA"], ["style", "IPA"], ["brewery_id", 5], ["created_at", "2015-01-19 19:03:35.247991"], ["updated_at", "2015-01-19 19:03:35.247991"]]
+   (33.0ms)  commit transaction
+=> #<Beer id: 9, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "2015-01-19 19:03:35", updated_at: "2015-01-19 19:03:35">
+irb(main):003:0> nanny = Beer.create name:"Nanny State", style:"lowalcohol", brewery_id:brewdog.id
+   (0.2ms)  begin transaction
+  SQL (0.5ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Nanny State"], ["style", "lowalcohol"], ["brewery_id", 5], ["created_at", "2015-01-19 19:04:41.944237"], ["updated_at", "2015-01-19 19:04:41.944237"]]
+   (35.3ms)  commit transaction
+=> #<Beer id: 10, name: "Nanny State", style: "lowalcohol", brewery_id: 5, created_at: "2015-01-19 19:04:41", updated_at: "2015-01-19 19:04:41">
+irb(main):004:0> punk.ratings.create score:21
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 21], ["beer_id", 9], ["created_at", "2015-01-19 19:05:43.936358"], ["updated_at", "2015-01-19 19:05:43.936358"]]
+   (54.0ms)  commit transaction
+=> #<Rating id: 1, score: 21, beer_id: 9, created_at: "2015-01-19 19:05:43", updated_at: "2015-01-19 19:05:43">
+irb(main):005:0> punk.ratings.create score:25
+   (0.2ms)  begin transaction
+  SQL (0.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 25], ["beer_id", 9], ["created_at", "2015-01-19 19:05:50.598213"], ["updated_at", "2015-01-19 19:05:50.598213"]]
+   (33.8ms)  commit transaction
+=> #<Rating id: 2, score: 25, beer_id: 9, created_at: "2015-01-19 19:05:50", updated_at: "2015-01-19 19:05:50">
+irb(main):006:0> nanny.ratings.create score:15
+   (0.2ms)  begin transaction
+  SQL (0.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 15], ["beer_id", 10], ["created_at", "2015-01-19 19:06:01.402335"], ["updated_at", "2015-01-19 19:06:01.402335"]]
+   (33.9ms)  commit transaction
+=> #<Rating id: 3, score: 15, beer_id: 10, created_at: "2015-01-19 19:06:01", updated_at: "2015-01-19 19:06:01">
+irb(main):007:0> nanny.ratings.create score:21
+   (0.2ms)  begin transaction
+  SQL (0.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 21], ["beer_id", 10], ["created_at", "2015-01-19 19:06:04.667568"], ["updated_at", "2015-01-19 19:06:04.667568"]]
+   (35.1ms)  commit transaction
+=> #<Rating id: 4, score: 21, beer_id: 10, created_at: "2015-01-19 19:06:04", updated_at: "2015-01-19 19:06:04">
+irb(main):008:0>
