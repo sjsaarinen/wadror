@@ -1,10 +1,7 @@
 class Beer < ActiveRecord::Base
+  include RatingAverage
   belongs_to :brewery
-  has_many :ratings
-
-  def average_rating
-    ratings.average(:score)
-  end
+  has_many :ratings, dependent: :destroy
 
   def to_s
     "#{brewery.name}: #{name}"
