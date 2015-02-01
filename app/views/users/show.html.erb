@@ -8,6 +8,13 @@
   has made <%= @user.ratings.count %> <%= "rating".pluralize(@user.ratings.count)  %>, average rating <%= @user.average_rating %>
 </p>
 
+<p>
+  member of
+  <% @user.beer_clubs.each do |beer_club| %>
+      <%= link_to beer_club.name, beer_club %> </li>
+  <% end %>
+</p>
+
 <h2>
   ratings
 </h2>
