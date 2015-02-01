@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 4},
                        format: {with: /(\S*[A-Z]+\S*\d+\S*)|(\S*\d+\S*[A-Z]+\S*)/, message: "must contain at least one capital letter and one number"}
 
-  has_many :memberships
-  has_many :ratings
+  has_many :memberships, dependent: :destroy
+  has_many :ratings, dependent: :destroy
   has_many :beer_clubs, through: :memberships
 end
