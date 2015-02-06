@@ -50,5 +50,6 @@ describe User do
       expect(user).not_to be_valid
       expect(User.count).to eq(0)
     end
+
   end
 end
