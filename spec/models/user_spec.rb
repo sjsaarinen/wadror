@@ -168,4 +168,6 @@ def create_beer_with_rating_and_brewery(score, brewery, user)
   beer = FactoryGirl.create(:beer, brewery:brewery)
   FactoryGirl.create(:rating, score:score, beer:beer, user:user)
   beer
+
 end
+
