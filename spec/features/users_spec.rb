@@ -34,4 +34,31 @@ describe "User" do
     end
 
   end
+
+  describe "ratings" do
+    let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
+    let!(:beer) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
+    let!(:user) { FactoryGirl.create(:user, username:"Nikolai") }
+    it "are displayed on users page" do
+      FactoryGirl.create(:rating, score:20, beer:beer, user:user)
+      FactoryGirl.create(:rating, score:18, beer:beer, user:user)
+      visit user_path(user)
+      expect(page).to have_content "has made 2 ratings"
+      expect(page).to have_content "Karhu 20"
+      expect(page).to have_content "Karhu 18"
+    end
+
+    it "that are not made by user are not displayed on users page" do
+      user2 = FactoryGirl.create(:user, username:"Samuel")
+      FactoryGirl.create(:rating, score:13, beer:beer, user:user2)
+      FactoryGirl.create(:rating, score:11, beer:beer, user:user2)
+      visit user_path(user)
+      expect(page).to have_content "has made 0 ratings"
+      expect(page).not_to have_content "Karhu 13"
+      expect(page).not_to have_content "Karhu 11"
+    end
+
+  end
+
+
 end
