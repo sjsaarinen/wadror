@@ -38,11 +38,11 @@ describe "User" do
   describe "ratings" do
     let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
     let!(:beer) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
-    let!(:user) { FactoryGirl.create(:user, username:"Nikolai") }
+    let!(:user1) { FactoryGirl.create(:user, username:"Nikolai") }
     it "are displayed on users page" do
-      FactoryGirl.create(:rating, score:20, beer:beer, user:user)
-      FactoryGirl.create(:rating, score:18, beer:beer, user:user)
-      visit user_path(user)
+      FactoryGirl.create(:rating, score:20, beer:beer, user:user1)
+      FactoryGirl.create(:rating, score:18, beer:beer, user:user1)
+      visit user_path(user1)
       expect(page).to have_content "has made 2 ratings"
       expect(page).to have_content "Karhu 20"
       expect(page).to have_content "Karhu 18"
@@ -52,12 +52,26 @@ describe "User" do
       user2 = FactoryGirl.create(:user, username:"Samuel")
       FactoryGirl.create(:rating, score:13, beer:beer, user:user2)
       FactoryGirl.create(:rating, score:11, beer:beer, user:user2)
-      visit user_path(user)
+      visit user_path(user1)
       expect(page).to have_content "has made 0 ratings"
       expect(page).not_to have_content "Karhu 13"
       expect(page).not_to have_content "Karhu 11"
+
     end
 
+  end
+
+  it "made rating is removed from database when he deletes it" do
+    user = FactoryGirl.create(:user, username:"Samuel")
+    brewery = FactoryGirl.create(:brewery, name:"Koff")
+    beer = FactoryGirl.create(:beer, name:"Karhu", brewery:brewery)
+    FactoryGirl.create(:rating, score:22, beer:beer, user:user)
+    FactoryGirl.create(:rating, score:14, beer:beer, user:user)
+    sign_in(username:"Samuel", password:"Foobar1")
+    expect{
+      click_link("delete", href:"/ratings/1")
+    }.to change{Rating.count}.by(-1)
+    expect(page).not_to have_content "Karhu 22"
   end
 
 
