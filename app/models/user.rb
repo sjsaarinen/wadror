@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     return nil if ratings.empty?
     brewerygroup = ratings.group_by{ |r| r.beer.send(:brewery)}
     brewerygroup.each_pair{ |a,b| brewerygroup[a] = b.sum(&:score) / b.size.to_f }
-    brewerygroup.sort_by{ |a| a}.first[0]
+    brewerygroup.sort_by{ |a| a}.last[0]
   end
 
 end

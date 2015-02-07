@@ -1,21 +1,5 @@
-<h1>New Beer</h1>
+<h1>New beer</h1>
 
-<%= form_for(@beer) do |f| %>
-    <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-        <%= f.label :style %><br>
-        <%= f.select :style, options_for_select(@styles) %>
-    </div>
-    <div class="field">
-      <%= f.label :brewery_id %><br>
-      <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
-    </div>
-    <div class="actions">
-        <%= f.submit %>
-    </div>
-<% end %>
+<%= render 'form' %>
 
 <%= link_to 'Back', beers_path %>

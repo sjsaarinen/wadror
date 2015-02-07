@@ -1,3 +1,4 @@
+
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
@@ -36,7 +37,6 @@ class BeersController < ApplicationController
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # PATCH/PUT /beers/1
@@ -64,18 +64,19 @@ class BeersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beer
-      @beer = Beer.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_beer
+    @beer = Beer.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def beer_params
-      params.require(:beer).permit(:name, :style, :brewery_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def beer_params
+    params.require(:beer).permit(:name, :style, :brewery_id)
+  end
 
-    def set_breweries_and_styles_for_template
-      @breweries = Brewery.all
-      @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
-    end
+  def set_breweries_and_styles_for_template
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+  end
 end
+

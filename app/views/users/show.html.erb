@@ -8,6 +8,16 @@
   has made <%= @user.ratings.count %> <%= "rating".pluralize(@user.ratings.count)  %>, average rating <%= @user.average_rating %>
 </p>
 
+<% if @user.ratings.count > 0 %>
+<p>
+  favorite style <%= @user.favorite_style %>
+</p>
+
+<p>
+  favorite brewery <%= @user.favorite_brewery.name %>
+</p>
+<% end %>
+
 <p>
   member of
   <% @user.beer_clubs.each do |beer_club| %>
