@@ -74,5 +74,28 @@ describe "User" do
     expect(page).not_to have_content "Karhu 22"
   end
 
+  describe "favorite" do
+    let!(:user) { FactoryGirl.create :user, username:"Samuel" }
 
+    before :each do
+      brewery = FactoryGirl.create(:brewery, name:"Koff")
+      brewery2 = FactoryGirl.create(:brewery, name:"Hoff")
+      beer = FactoryGirl.create(:beer, name:"Karhu", style:"Lager", brewery:brewery)
+      beer2 = FactoryGirl.create(:beer, name:"Hassel", style:"Pilsner", brewery:brewery2)
+      FactoryGirl.create(:rating, score:15, beer:beer, user:user)
+      FactoryGirl.create(:rating, score:20, beer:beer2, user:user)
+      FactoryGirl.create(:rating, score:25, beer:beer2, user:user)
+    end
+
+    it "brewery is displayed on users page" do
+      visit user_path(user)
+      expect(page).to have_content "favorite brewery Hoff"
+    end
+
+    it "style is displayed on users page" do
+      visit user_path(user)
+      expect(page).to have_content "favorite style Pilsner"
+    end
+
+  end
 end
