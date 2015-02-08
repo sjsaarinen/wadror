@@ -42,6 +42,7 @@
       "/home/sjsaarin/Opiskelu/wadror/ratebeer/app/controllers/beer_clubs_controller.rb": [
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -124,8 +125,12 @@
         1,
         null,
         1,
-        89,
-        58,
+        112,
+        65,
+        null,
+        null,
+        1,
+        4,
         null,
         null
       ],
@@ -421,6 +426,7 @@
         1,
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -622,6 +628,6 @@
         null
       ]
     },
-    "timestamp": 1423394288
+    "timestamp": 1423398859
   }
 }
