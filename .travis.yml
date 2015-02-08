@@ -10,4 +10,5 @@ deploy:
   provider: heroku
   api_key:
     secure: KwXfg5S3z7WSCkiNinjrRLwRIk8f55CUBuNd4fGNjKBWj9A7pu5vDhVJ0U1/Gm4x7codPBpSILzrUtRAK34u1/OsU5+g73Uhnu+O4Ty7Aaqr6a1PpWk0/DkI81wbt9KKgHwMTk9SO1708hJWFULIrnsRWxS6i5D4gPYRnZaHm28=
+  app: young-fjord-7116
   run: "rake db:migrate"
