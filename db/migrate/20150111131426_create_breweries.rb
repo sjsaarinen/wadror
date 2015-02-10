@@ -4,7 +4,7 @@ class CreateBreweries < ActiveRecord::Migration
       t.string :name
       t.integer :year
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

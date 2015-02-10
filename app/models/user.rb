@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :beer_clubs, through: :memberships
 
   validates :username, uniqueness: true,
-            length: { in: 3..15 }
+                       length: { in: 3..15 }
 
   validates :password, length: { minimum: 4 }
 

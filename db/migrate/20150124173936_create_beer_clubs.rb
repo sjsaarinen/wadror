@@ -5,7 +5,7 @@ class CreateBeerClubs < ActiveRecord::Migration
       t.integer :founded
       t.string :city
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

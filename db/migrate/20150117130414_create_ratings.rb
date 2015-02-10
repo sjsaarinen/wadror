@@ -4,7 +4,7 @@ class CreateRatings < ActiveRecord::Migration
       t.integer :score
       t.integer :beer_id
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

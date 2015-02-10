@@ -1,22 +1,10 @@
 class Brewery < ActiveRecord::Base
   include RatingAverage
-  has_many :beers, dependent: :destroy
-  has_many :ratings, through: :beers
 
   validates :name, presence: true
-  validates :year, numericality: { greater_than_or_equal_to: 1042,
-                                   less_than_or_equal_to: lambda {|_| Time.now.year},
-                                   only_integer: true }
+  validates :year, numericality: { greater_than_or_equal_to: 1024,
+                                   less_than_or_equal_to: ->(_){Time.now.year} }
 
-  def print_report
-      puts name
-      puts "established at year #{year}"
-      puts "number of beers #{beers.count}"
-  end
-
-  def restart
-      self.year = 2015
-      puts "changed year to #{year}"
-  end
-
+  has_many :beers, dependent: :destroy
+  has_many :ratings, through: :beers
 end
