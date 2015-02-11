@@ -50,6 +50,8 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.0'
 
+  gem 'httparty'
+
 end
 
 group :test do
