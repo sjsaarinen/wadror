@@ -19,7 +19,7 @@ FactoryGirl.define do
   end
 
   factory :style do
-    name "Lager"
+    name "Pilsner"
   end
 
   factory :beer do
