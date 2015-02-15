@@ -1,5 +1,3 @@
-#require 'lib/beermapping_api'
-
 class PlacesController < ApplicationController
 
   before_action :set_place, only: [:show]
