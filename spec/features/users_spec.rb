@@ -37,10 +37,11 @@ describe "User" do
     let!(:user) { FactoryGirl.create :user, username:"Samuel" }
 
     before :each do
+      style = FactoryGirl.create(:style, name: "Pilsner")
       brewery = FactoryGirl.create(:brewery, name:"Koff")
       brewery2 = FactoryGirl.create(:brewery, name:"Hoff")
-      beer = FactoryGirl.create(:beer, name:"Karhu", style:"Lager", brewery:brewery)
-      beer2 = FactoryGirl.create(:beer, name:"Hassel", style:"Pilsner", brewery:brewery2)
+      beer = FactoryGirl.create(:beer, name:"Karhu", brewery:brewery)
+      beer2 = FactoryGirl.create(:beer, name:"Hassel", brewery:brewery2, style:style)
       FactoryGirl.create(:rating, score:15, beer:beer, user:user)
       FactoryGirl.create(:rating, score:20, beer:beer2, user:user)
       FactoryGirl.create(:rating, score:25, beer:beer2, user:user)
