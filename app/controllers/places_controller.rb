@@ -1,4 +1,4 @@
-require 'lib/beermapping_api'
+#require 'lib/beermapping_api'
 
 class PlacesController < ApplicationController
 
