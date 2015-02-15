@@ -11,7 +11,7 @@
       Has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %>
     </p>
     <p>
-      favorite style <%= @user.favorite_style %>
+      favorite style <%= @user.favorite_style.name %>
     </p>
 
     <p>
