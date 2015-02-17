@@ -15,5 +15,5 @@
   <% end %>
 </ul>
 
-<% if current_user %><%= link_to 'Edit', edit_style_path(@style) %> | <% end %>
-<%= link_to 'Back', styles_path %>
+<% if current_user %><%= link_to 'Edit', edit_style_path(@style), class:'btn btn-primary' %> | <% end %>
+<%= link_to 'Back', styles_path, class:'btn btn-primary' %>

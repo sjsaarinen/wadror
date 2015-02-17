@@ -57,7 +57,8 @@ describe "Ratings" do
     other_rating = FactoryGirl.create(:rating, score:20, beer:beer1)
 
     visit user_path(user.id)
-    deleted_rating = page.all('li')[1].text
+    #save_and_open_page
+    deleted_rating = page.all('li')[12].text
 
     expect{
       page.all('a', text:'delete' )[1].click
