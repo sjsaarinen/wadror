@@ -58,7 +58,7 @@ describe "Ratings" do
 
     visit user_path(user.id)
     #save_and_open_page
-    deleted_rating = page.all('li')[12].text
+    deleted_rating = page.all('li')[13].text
 
     expect{
       page.all('a', text:'delete' )[1].click
