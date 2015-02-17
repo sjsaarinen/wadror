@@ -20,18 +20,47 @@ class User < ActiveRecord::Base
     ratings.order(score: :desc).limit(1).first.beer
   end
 
-  def favorite_style
-    return nil if ratings.empty?
-    stylegroup = ratings.group_by{ |r| r.beer.send(:style)}
-    stylegroup.each_pair{ |a,b| stylegroup[a] = b.sum(&:score) / b.size.to_f }
-    stylegroup.sort_by{ |a| a}.last[0]
-  end
-
   def favorite_brewery
     return nil if ratings.empty?
-    brewerygroup = ratings.group_by{ |r| r.beer.send(:brewery)}
-    brewerygroup.each_pair{ |a,b| brewerygroup[a] = b.sum(&:score) / b.size.to_f }
-    brewerygroup.sort_by{ |a| a}.last[0]
+    brewery_ratings = rated_breweries.inject([]) do |ratings, brewery|
+      ratings << {
+          name: brewery,
+          rating: rating_of_brewery(brewery) }
+    end
+
+    brewery_ratings.sort_by { |brewery| brewery[:rating] }.reverse.first[:name]
   end
 
+  def favorite_style
+    return nil if ratings.empty?
+    style_ratings = rated_styles.inject([]) do |ratings, style|
+      ratings << {
+          name: style,
+          rating: rating_of_style(style) }
+    end
+
+    style_ratings.sort_by { |style| style[:rating] }.reverse.first[:name]
+  end
+
+  def rated_breweries
+    ratings.map{ |r| r.beer.brewery }.uniq
+  end
+
+  def rated_styles
+    ratings.map{ |r| r.beer.style }.uniq
+  end
+
+  def rating_of_brewery(brewery)
+    ratings_of_brewery = ratings.select do |r|
+      r.beer.brewery == brewery
+    end
+    ratings_of_brewery.map(&:score).sum / ratings_of_brewery.count
+  end
+
+  def rating_of_style(style)
+    ratings_of_style = ratings.select do |r|
+      r.beer.style == style
+    end
+    ratings_of_style.map(&:score).sum / ratings_of_style.count
+  end
 end

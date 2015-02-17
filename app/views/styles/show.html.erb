@@ -1,14 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h2>
-  <%= @style.name %>
-</h2>
+<h2><%= @style.name %></h2>
+
 <p>
   <%= @style.description %>
 </p>
-<h3>
-  Beers
-</h3>
+<h3>Beers</h3>
+
 <ul>
   <% @style.beers.each do |beer| %>
       <li>
@@ -16,3 +14,6 @@
       </li>
   <% end %>
 </ul>
+
+<% if current_user %><%= link_to 'Edit', edit_style_path(@style) %> | <% end %>
+<%= link_to 'Back', styles_path %>

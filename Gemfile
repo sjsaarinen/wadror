@@ -34,6 +34,14 @@ gem 'rb-readline'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
+
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -50,8 +58,6 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.0'
 
-  gem 'httparty'
-
 end
 
 group :test do
@@ -66,7 +72,6 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
-  gem 'httparty'
 end
 
 ruby '2.2.0'
