@@ -40,7 +40,10 @@
   <% end %>
 </ul>
 
+<br>
+
 <% if @user == current_user %>
     <%= link_to 'Change password', edit_user_path(@user), class:'btn btn-primary' %>
     <%= link_to 'Delete account', @user, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %></
 <% end %>
+<br>
