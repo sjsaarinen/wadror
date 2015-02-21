@@ -20,12 +20,14 @@
   </li>
  <% end %>
 </ul>
-
+<p>
 <% if @brewery.ratings.empty? %>
   beers of the brewery has not yet been rated!
 <% else %>
   Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= round(@brewery.average_rating) %>
 <% end %>
-
-<br>
+</p>
+<% if current_user %>
+  <%= link_to "change activity", toggle_activity_brewery_path(@brewery.id), method: :post, class: "btn btn-primary" %><br><br>
+<% end %>
 <%= edit_and_destroy_buttons(@brewery) %>

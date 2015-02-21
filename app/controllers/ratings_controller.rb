@@ -29,4 +29,5 @@ class RatingsController < ApplicationController
     rating.delete if current_user == rating.user
     redirect_to :back
   end
+
 end
