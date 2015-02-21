@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include RatingAverage
+  extend Top
 
   has_secure_password
 
@@ -62,5 +63,10 @@ class User < ActiveRecord::Base
       r.beer.style == style
     end
     ratings_of_style.map(&:score).sum / ratings_of_style.count
+  end
+
+  def self.top_raters(n)
+    user_ratings_count_desc_order = User.all.sort_by { |u| -(u.ratings.count) }
+    user_ratings_count_desc_order.first(n)
   end
 end

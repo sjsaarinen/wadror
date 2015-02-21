@@ -1,5 +1,6 @@
 class Beer < ActiveRecord::Base
   include RatingAverage
+  extend Top
 
   belongs_to :brewery
   belongs_to :style
@@ -10,6 +11,6 @@ class Beer < ActiveRecord::Base
   validates :style, presence: true
 
   def to_s
-    "#{name} #{brewery.name}"
+    "#{name}"
   end
 end
