@@ -24,11 +24,8 @@
 <% if @brewery.ratings.empty? %>
   beers of the brewery has not yet been rated!
 <% else %>
-  Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
+  Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= round(@brewery.average_rating) %>
 <% end %>
 
 <br>
-<% if current_user %>
-    <%= link_to 'Edit', edit_brewery_path(@brewery), class:'btn btn-primary' %>
-    <%= link_to 'Destroy', @brewery, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %>
-<% end %>
+<%= edit_and_destroy_buttons(@brewery) %>

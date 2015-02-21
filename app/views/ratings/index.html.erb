@@ -2,15 +2,15 @@
 <div class="row">
   <div class="col-sm-4">
     <h2>Best beers</h2>
-    <%= render 'top', things: @top_beers = Beer.top(3) %>
+    <%= render 'top', items: @top_beers = Beer.top(3) %>
   </div>
   <div class="col-sm-4">
     <h2>Best breweries</h2>
-    <%= render 'top', things: @top_breweries = Brewery.top(3) %>
+    <%= render 'top', items: @top_breweries = Brewery.top(3) %>
   </div>
   <div class="col-sm-4">
     <h2>Best styles</h2>
-    <%= render 'top', things: @top_styles = Style.top(3) %>
+    <%= render 'top', items: @top_styles = Style.top(3) %>
   </div>
 </div>
 

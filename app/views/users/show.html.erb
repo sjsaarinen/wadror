@@ -8,7 +8,7 @@
     <p>has not yet rated any beers</p>
 <% else %>
     <p>
-      Has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %>
+      Has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= round(@user.average_rating) %>
     </p>
     <p>
       favorite style <%= @user.favorite_style.name %>
@@ -42,8 +42,5 @@
 
 <br>
 
-<% if @user == current_user %>
-    <%= link_to 'Change password', edit_user_path(@user), class:'btn btn-primary' %>
-    <%= link_to 'Delete account', @user, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %></
-<% end %>
+<%= edit_and_destroy_buttons(@user) %>
 <br>

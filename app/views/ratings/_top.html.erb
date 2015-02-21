@@ -7,10 +7,10 @@
   </thead>
 
   <tbody>
-  <% things.each do |thing| %>
+  <% items.each do |item| %>
       <tr>
-        <td><%= link_to thing.name, thing %></td>
-        <td><%= thing.average_rating %></td>
+        <td><%= link_to item.name, item %></td>
+        <td><%= round(item.average_rating) %></td>
         <td></td>
       </tr>
   <% end %>
