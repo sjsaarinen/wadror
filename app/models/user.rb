@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
 
   validates :password, format: { with: /\d.*[A-Z]|[A-Z].*\d/,  message: "has to contain one number and one upper case letter" }
 
+  scope :active, -> { where disabled:[nil,false] }
+  scope :frozen, -> { where disabled: true}
+
   def favorite_beer
     return nil if ratings.empty?
     ratings.order(score: :desc).limit(1).first.beer

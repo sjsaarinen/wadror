@@ -1,5 +1,8 @@
 <h2>
   <%= @user.username %>
+  <% if @user.disabled %>
+      <span class="label label-info">account frozen</span>
+  <% end %>
 </h2>
 
 <% if @user.ratings.empty? %>
@@ -39,6 +42,15 @@
 </ul>
 
 <br>
+<% if current_user %>
+    <% if current_user.admin %>
+        <% if not @user.disabled %>
+            <%= link_to "freeze account", toggle_account_status_user_path(@user.id), method: :post, class: "btn btn-danger" %><br><br>
+        <% else %>
+            <%= link_to "reactivate account", toggle_account_status_user_path(@user.id), method: :post, class: "btn btn-danger" %><br><br>
+        <% end %>
+    <%end%>
+<% end %>
 
 <%= edit_and_destroy_buttons(@user) %>
 <br>

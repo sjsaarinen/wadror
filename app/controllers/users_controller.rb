@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_is_admin, only: [:toggle_account_status]
 
   # GET /users
   # GET /users.json
@@ -62,6 +63,15 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_account_status
+    user = User.find(params[:id])
+    user.update_attribute :disabled, (not user.disabled)
+
+    new_status = user.disabled? ? "frozen" : "active"
+
+    redirect_to :back, notice:"user account status changed to #{new_status}"
   end
 
   private
