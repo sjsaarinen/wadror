@@ -37,7 +37,10 @@ describe "Beerlist page" do
   end
 
   it "has beers ordered by name", js:true do
-
+    visit beerlist_path
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Fastenbier"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Lechte Weisse"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Nikolai"
   end
 
   it "when style is clicked list is ordered by style", js:true do
