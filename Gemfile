@@ -38,6 +38,8 @@ gem 'httparty'
 
 gem 'bootstrap-sass'
 
+gem 'jquery-turbolinks'
+
 group :development do
   gem 'rails_layout'
 end
