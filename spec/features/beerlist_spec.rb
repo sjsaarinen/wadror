@@ -44,9 +44,23 @@ describe "Beerlist page" do
   end
 
   it "when style is clicked list is ordered by style", js:true do
+    visit beerlist_path
+    click_link('style')
+    #find('table').find('tr:nth-child(2)')
+    #save_and_open_page
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Lager"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Rauchbier"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Weizen"
   end
 
   it "when brewery is clicked list is ordered by brewery", js:true do
+    visit beerlist_path
+    click_link('brewery')
+    #find('table').find('tr:nth-child(2)')
+    #save_and_open_page
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Ayinger"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Koff"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Schlenkerla"
   end
 
 end
