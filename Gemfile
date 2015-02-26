@@ -42,6 +42,7 @@ gem 'jquery-turbolinks'
 
 group :development do
   gem 'rails_layout'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do

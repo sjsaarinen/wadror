@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  helper_method :is_admin?
+
   def current_user
     return nil if session[:user_id].nil?
     User.find(session[:user_id])
@@ -15,6 +17,12 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_that_is_admin
-    redirect_to signin_path, notice:'you should be signed as admin' if not current_user.admin
+    redirect_to :back, notice:'operation only allowed for admin' unless current_user.admin?
   end
+
+  def is_admin?
+    return nil unless current_user
+    current_user.admin?
+  end
+
 end

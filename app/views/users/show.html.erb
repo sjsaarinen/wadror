@@ -42,15 +42,13 @@
 </ul>
 
 <br>
-<% if current_user %>
-    <% if current_user.admin %>
+    <% if is_admin? %>
         <% if not @user.disabled %>
             <%= link_to "freeze account", toggle_account_status_user_path(@user.id), method: :post, class: "btn btn-danger" %><br><br>
         <% else %>
             <%= link_to "reactivate account", toggle_account_status_user_path(@user.id), method: :post, class: "btn btn-danger" %><br><br>
         <% end %>
     <%end%>
-<% end %>
 
 <%= edit_and_destroy_buttons(@user) %>
 <br>
