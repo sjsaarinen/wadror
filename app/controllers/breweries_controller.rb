@@ -2,6 +2,8 @@ class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_signed_in, except: [:index, :show, :list, :nglist]
   before_action :ensure_that_is_admin, only: [:destroy]
+  before_action :skip_if_cached, only:[:index]
+  before_action :expire_cache, only:[:create, :update, :destroy]
 
   # GET /breweries
   # GET /breweries.json
@@ -9,8 +11,6 @@ class BreweriesController < ApplicationController
     @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
-
-    order = params[:order] || 'name'
 
     order_direction = case session[:last_brewery_order]
                         when nil then 1
@@ -21,21 +21,21 @@ class BreweriesController < ApplicationController
     session[:last_brewery_order] = order_direction
 
     if order_direction == 1
-      @active_breweries = case order
+      @active_breweries = case @order
                             when 'name' then @active_breweries.sort_by{ |b| b.name }
                             when 'year' then @active_breweries.sort_by{ |b| b.year }
                           end
-      @retired_breweries = case order
+      @retired_breweries = case @order
                              when 'name' then @retired_breweries.sort_by{ |b| b.name }
                              when 'year' then @retired_breweries.sort_by{ |b| b.year }
                            end
 
     else
-      @active_breweries = case order
+      @active_breweries = case @order
                             when 'name' then @active_breweries.sort_by{ |b| b.name }.reverse!
                             when 'year' then @active_breweries.sort_by{ |b| b.year }.reverse!
                           end
-      @retired_breweries = case order
+      @retired_breweries = case @order
                              when 'name' then @retired_breweries.sort_by{ |b| b.name }.reverse!
                              when 'year' then @retired_breweries.sort_by{ |b| b.year }.reverse!
                            end
@@ -113,6 +113,15 @@ class BreweriesController < ApplicationController
   end
 
   private
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "brewerylist-#{@order}"  )
+  end
+
+  def expire_cache
+    expire_fragment('beerlist')
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_brewery
