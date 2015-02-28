@@ -3,21 +3,19 @@ class BeersController < ApplicationController
   before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
   before_action :ensure_that_signed_in, except: [:index, :show, :list, :nglist]
   before_action :ensure_that_is_admin, only: [:destroy]
-
+  before_action :skip_if_cached, only:[:index]
+  before_action :expire_cache, only:[:create, :update, :destroy]
 
   # GET /beers
   # GET /beers.json
   def index
-    #@beers = Beer.includes(:brewery, :style).all
-    @beers = Beer.all
+    @beers = Beer.includes(:brewery, :style).all
 
-    order = params[:order] || 'name'
-
-    @beers = case order
-               when 'name' then @beers.sort_by{ |b| b.name }
-               when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
-               when 'style' then @beers.sort_by{ |b| b.style.name }
-             end
+    case @order
+      when 'name' then @beers.sort_by!{ |b| b.name }
+      when 'brewery' then @beers.sort_by!{ |b| b.brewery.name }
+      when 'style' then @beers.sort_by!{ |b| b.style.name }
+    end
   end
 
   # GET /beers/1
@@ -88,6 +86,15 @@ class BeersController < ApplicationController
     @styles = Style.all
   end
 
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "beerlist-#{@order}"  )
+  end
+
+  def expire_cache
+    expire_fragment('beerlist')
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_beer
     @beer = Beer.find(params[:id])
@@ -97,4 +104,5 @@ class BeersController < ApplicationController
   def beer_params
     params.require(:beer).permit(:name, :style_id, :brewery_id)
   end
+
 end
