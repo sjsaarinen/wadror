@@ -8,13 +8,24 @@ class BeersController < ApplicationController
 
   # GET /beers
   # GET /beers.json
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "beerlist-#{@order}"  )
+  end
+
   def index
     @beers = Beer.includes(:brewery, :style).all
 
     case @order
-      when 'name' then @beers.sort_by{ |b| b.name }
-      when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
-      when 'style' then @beers.sort_by{ |b| b.style.name }
+      when 'name' then
+        @beers.sort_by{ |b| b.name }
+        @beers = @beers.sort_by{ |b| b.name }
+      when 'brewery' then
+        @beers.sort_by{ |b| b.brewery.name }
+        @beers = @beers.sort_by{ |b| b.brewery.name }
+      when 'style' then
+        @beers.sort_by{ |b| b.style.name }
+        @beers = @beers.sort_by{ |b| b.style.name }
     end
   end
 
@@ -86,13 +97,8 @@ class BeersController < ApplicationController
     @styles = Style.all
   end
 
-  def skip_if_cached
-    @order = params[:order] || 'name'
-    return render :index if fragment_exist?( "beerlist-#{@order}"  )
-  end
-
   def expire_cache
-    expire_fragment('beerlist')
+    ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
   end
 
   # Use callbacks to share common setup or constraints between actions.
