@@ -40,6 +40,8 @@ gem 'bootstrap-sass'
 
 gem 'jquery-turbolinks'
 
+gem 'omniauth-github'
+
 group :development do
   gem 'rails_layout'
   gem 'rack-mini-profiler'

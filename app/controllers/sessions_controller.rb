@@ -17,6 +17,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create_oauth
+
+  end
+
   def destroy
     # nollataan sessio
     session[:user_id] = nil
