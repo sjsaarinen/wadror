@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include RatingAverage
   extend Top
+  require 'securerandom'
 
   has_secure_password
 
@@ -10,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :beer_clubs, through: :memberships
 
   validates :username, uniqueness: true,
-                       length: { in: 3..15 }
+                       length: { in: 3..25 }
 
   validates :password, length: { minimum: 4 }
 
@@ -18,6 +19,14 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where disabled:[nil,false] }
   scope :frozen, -> { where disabled: true}
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.username = auth["info"]["name"]
+      #user.password = 'A' + SecureRandom.hex + '0'
+      user.password = SecureRandom.urlsafe_base64(32)
+    end
+  end
 
   def favorite_beer
     return nil if ratings.empty?
