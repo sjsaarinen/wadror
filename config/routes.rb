@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :memberships
 
   resources :beer_clubs
 
@@ -38,6 +37,10 @@ Rails.application.routes.draw do
   resources :styles
 
   get 'auth/:provider/callback', to: 'sessions#create_oauth'
+
+  resources :memberships do
+    post 'confirm', on: :member
+  end
 
   root 'breweries#index'
   # The priority is based upon order of creation: first created -> highest priority.

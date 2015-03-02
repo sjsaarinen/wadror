@@ -5,14 +5,28 @@
 <p>
   Founded in <%= @beer_club.founded %>
 </p>
-
+<h3>Members</h3>
 <ul>
-  <% @beer_club.members.each do |member| %>
+  <% @beer_club.memberships.confirmed.each do |ms| %>
     <li>
-      <%= link_to member.username, member %>
+      <%= link_to ms.user.username, ms.user %>
     </li>
   <% end %>
 </ul>
+
+<h3>Outstanding applications</h3>
+
+<ul>
+  <% @beer_club.memberships.not_confirmed.each do |ms| %>
+      <li>
+        <%= link_to ms.user.username, ms.user %>
+        <% if @beer_club.is_member? current_user %>
+            <%= link_to 'Confirm', confirm_membership_path(ms), method: :post, class: 'btn btn-small' %>
+        <% end %>
+      </li>
+  <% end %>
+</ul>
+
 <% if current_user and not @beer_club.members.find_by id: current_user %>
     <%= form_for(@membership) do |f| %>
         <%= f.hidden_field :beer_club_id %>
